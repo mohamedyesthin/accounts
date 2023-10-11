@@ -1,0 +1,137 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentTutorial.id">
+    <h4>Account</h4>
+    <div>
+      <label><strong>Name:</strong></label> {{ currentTutorial.name }}
+    </div>
+    <div>
+      <label><strong>Purpose:</strong></label>
+      {{ currentTutorial.purpose }}
+    </div>
+    <div>
+      <label><strong>Given Amount:</strong></label> {{ currentTutorial.GivenAmount}}
+    </div>
+    <div>
+      <label><strong>Expense Amount:</strong></label>
+      {{ currentTutorial.ExpenseAmount}}
+    </div>
+    <div>
+      <label><strong>Balance Amount:</strong></label>
+      {{ currentTutorial.Balance}}
+    </div>
+    <div>
+      <label><strong>Own Spends:</strong></label> {{ currentTutorial.OwnSpends}}
+    </div>
+   
+    <!-- <div>
+      <label><strong>Status:</strong></label>
+      {{ currentTutorial.published ? "Published" : "Pending" }}
+    </div> -->
+
+    <a
+      class="badge badge-warning"
+      routerLink="/tutorials/{{ currentTutorial.id }}"
+    >
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentTutorial">
+    <br />
+    <p>Please click on a Tutorial...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentTutorial.id" class="edit-form">
+    <h4>Tutorial</h4>
+    <form>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [(ngModel)]="currentTutorial.name"
+          name="name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="purpose">Purpose</label>
+        <input
+          type="text"
+          class="form-control"
+          id="purpose"
+          [(ngModel)]="currentTutorial.purpose"
+          name="purpose"
+        />
+      </div>
+      <div class="form-group">
+        <label for="GivenAmount">Given Amount</label>
+        <input
+          type="text"
+          class="form-control"
+          id="GivenAmount"
+          [(ngModel)]="currentTutorial.GivenAmount"
+          name="GivenAmount"
+        />
+      </div>
+      <div class="form-group">
+        <label for="ExpenseAmount">Expense Amount</label>
+        <input
+          type="text"
+          class="form-control"
+          id="ExpenseAmount"
+          [(ngModel)]="currentTutorial.ExpenseAmount"
+          name="ExpenseAmount"
+        />
+      </div>
+     
+
+      <!-- <div class="form-group">
+        <label><strong>Status:</strong></label>
+        {{ currentTutorial.published ? "Published" : "Pending" }}
+      </div> -->
+    </form>
+
+    <button
+    class="badge badge-primary mr-2"
+    (click)="backtohome()"
+  >
+    Cancel
+  </button>
+
+    <button
+      class="badge badge-primary mr-2"
+      (click)="updatePublished(false)"
+    >
+      Create
+    </button>
+    <!-- <button
+      *ngIf="!currentTutorial.published"
+      class="badge badge-primary mr-2"
+      (click)="updatePublished(true)"
+    >
+      Publish
+    </button> -->
+
+    <button class="badge badge-danger mr-2" (click)="deleteTutorial()">
+      Delete
+    </button>
+    
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateTutorial()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentTutorial.id">
+    <br />
+    <p>Cannot access this Tutorial...</p>
+  </div>
+</ng-template>
